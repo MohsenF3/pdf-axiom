@@ -1,19 +1,46 @@
-import { Button } from "@/components/button";
+import FIleUpload from "@/components/home/FIleUpload";
+import { Button } from "@/components/ui/button";
+import { UserButton } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
+import Link from "next/link";
 
-export default function Home() {
+export default async function Home() {
+  // CLERK
+  const { userId } = await auth();
+  const isAuth = !!userId;
+
   return (
-    <main>
-      <h1>Unlock the Power of PDFs with PDF Axiom</h1>
-      <h3>
-        Revolutionize the way you search, analyze, and understand PDFs with our
-        cutting-edge AI-powered platform.
-      </h3>
-      <p>
-        Search PDFs with unparalleled speed and accuracy Analyze and extract key
-        information from complex PDFs Understand the context and meaning behind
-        PDFs with our advanced AI-powered insights
-      </p>
-      <Button>Get Started with PDF Axiom Today</Button>
+    <main className="w-screen min-h-screen bg-gradient-to-r from-rose-100 to-teal-100 text-background">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+        <div className="flex flex-col items-center text-center gap-5">
+          <div className="flex items-center">
+            <h1 className="mr-3 text-5xl font-semibold">
+              Unlock the Power of PDFs with PDF Axiom
+            </h1>
+
+            <UserButton />
+          </div>
+          <div>
+            <h3>
+              Revolutionize the way you search, analyze, and understand PDFs
+              with our cutting-edge AI-powered platform.
+            </h3>
+            <p>
+              Search PDFs with unparalleled speed and accuracy Analyze and
+              extract key information from complex PDFs Understand the context
+              and meaning behind PDFs with our advanced AI-powered insights
+            </p>
+          </div>
+
+          {isAuth ? (
+            <FIleUpload />
+          ) : (
+            <Link href="/sign-in">
+              <Button>Get Started with PDF Axiom Today</Button>
+            </Link>
+          )}
+        </div>
+      </div>
     </main>
   );
 }

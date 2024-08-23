@@ -1,7 +1,9 @@
-import React from 'react'
+import React from "react";
 
-export default function FIleUpload() {
-  return (
-    <div>FIleUpload</div>
-  )
-}
+type Props = {};
+
+const FIleUpload = (props: Props) => {
+  return <div>FIleUpload</div>;
+};
+
+export default FIleUpload;

@@ -5,7 +5,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import QueryProvider from "@/context/QueryProvider";
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import { extractRouterConfig } from "uploadthing/server";
-import { uploadRouter } from "./server/uploadthing";
+import { uploadRouter } from "../lib/upload/uploadthing-server";
 import { Toaster } from "@/components/ui/sonner";
 
 const inter = Inter({ subsets: ["latin"] });

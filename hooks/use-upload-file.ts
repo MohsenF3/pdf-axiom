@@ -5,6 +5,8 @@ import { toast } from "sonner";
 import axios, { AxiosError } from "axios";
 import { z } from "zod";
 import { createChatSchema } from "@/lib/schema/api/create-chat";
+import { useRouter } from "next/navigation";
+import { deleteFile } from "@/lib/actions/upload-file";
 
 type ChatSchema = z.infer<typeof createChatSchema>;
 
@@ -27,6 +29,7 @@ const createChat = async (data: ChatSchema) => {
 export const useUploadFile = () => {
   const [files, setFiles] = React.useState<File[]>([]);
   const [uploading, setUploading] = React.useState(false);
+  const router = useRouter();
 
   const { mutate, isPending } = useMutation({
     mutationFn: createChat,
@@ -35,27 +38,29 @@ export const useUploadFile = () => {
   const { isUploading, progress, startUpload, permittedFileInfo } =
     useUploadThingy("pdfFile", {
       onClientUploadComplete: (file) => {
-        const {
-          serverData: { key, name, url },
-        } = file[0];
-
-        const data = {
-          pdf_key: key,
-          pdf_name: name,
-          pdf_url: url,
+        const { serverData } = file[0];
+        const chatData = {
+          ...serverData,
+          pdf_key: serverData.pdf_key.replace(/\.pdf$/, ""),
         };
 
         setUploading(true);
 
         toast.promise(
           new Promise((resolve, reject) => {
-            mutate(data, {
-              onSuccess: (data) => {
+            mutate(chatData, {
+              onSuccess: ({ chat_key }) => {
+                // redirect user to chat page
+                // router.push(`/chat/${chat_key}`);
                 setFiles([]);
-                resolve(data);
+                resolve(chatData);
               },
               onError: (error) => {
                 setFiles([]);
+
+                // delete file from uploadthing if some error occurred in create chat
+                deleteFile({ fileKey: chatData.pdf_key });
+
                 const axiosError = error as AxiosError;
                 const responseError = axiosError.response?.data;
 
@@ -72,7 +77,7 @@ export const useUploadFile = () => {
 
         setUploading(false);
       },
-      onUploadError: () => {
+      onUploadError: (error) => {
         setFiles([]);
         return Promise.reject();
       },
@@ -84,7 +89,7 @@ export const useUploadFile = () => {
 
   const maxFileCount = permittedFileInfo?.config.image?.maxFileCount || 1;
   const maxFileSize =
-    Number(permittedFileInfo?.config.image?.maxFileSize.replace("MB", "")) *
+    Number(permittedFileInfo?.config.pdf?.maxFileSize.replace("MB", "")) *
     1024 *
     1024;
 
@@ -108,7 +113,8 @@ export const useUploadFile = () => {
       setFiles(acceptedFiles);
 
       toast.promise(startUpload(acceptedFiles), {
-        loading: `Uploading file`,
+        loading: `Uploading file. 
+        This may take a few seconds.`,
         success: "File successfully uploaded",
         error: "Failed to upload file",
       });

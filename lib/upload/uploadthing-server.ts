@@ -2,8 +2,11 @@ import { auth } from "@clerk/nextjs/server";
 import { createUploadthing } from "uploadthing/next";
 import type { FileRouter } from "uploadthing/next";
 import { UploadThingError } from "uploadthing/server";
+import { UTApi } from "uploadthing/server";
 
 const f = createUploadthing();
+
+export const utapi = new UTApi();
 
 export const uploadRouter = {
   pdfFile: f({
@@ -22,7 +25,12 @@ export const uploadRouter = {
       return { userId };
     })
     .onUploadComplete(({ file }) => {
-      return file;
+      const anyFile = file as any;
+      return {
+        pdf_key: anyFile.key,
+        pdf_name: anyFile.name,
+        pdf_url: anyFile.url,
+      };
     }),
 } satisfies FileRouter;
 

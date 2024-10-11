@@ -4,7 +4,7 @@ import { createChatSchema } from "@/lib/schema/api/create-chat";
 import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
-export async function POST(req: Request, res: Response) {
+export async function POST(req: Request) {
   const { userId } = auth();
 
   // If the user is not authenticated, return a 401 unauthorized response
@@ -32,7 +32,7 @@ export async function POST(req: Request, res: Response) {
         pdfUrl: pdf_url,
       })
       .returning({
-        chatKey: chats.id,
+        chatKey: chats.fileKey,
       });
 
     // Return a 200 OK response with the chat key

@@ -1,4 +1,4 @@
-import { uploadRouter } from "@/app/server/uploadthing";
+import { uploadRouter } from "@/lib/upload/uploadthing-server";
 import { createRouteHandler } from "uploadthing/next";
 
 export const runtime = "edge";

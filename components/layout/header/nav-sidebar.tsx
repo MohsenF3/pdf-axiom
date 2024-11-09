@@ -12,7 +12,7 @@ export default function NavSidebar({ background }: NavSidebarProps) {
   return (
     <div className="block lg:hidden">
       <motion.div
-        className="flex w-full items-center justify-between rounded-md px-2.5 py-1.5 shadow-xl transition duration-300"
+        className="flex w-full items-center justify-between rounded-md px-2.5 py-1.5 transition duration-300"
         style={{ background }}
         initial={{ y: -100 }}
         animate={{ y: 0 }}

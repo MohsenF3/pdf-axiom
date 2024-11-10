@@ -1,13 +1,11 @@
-import { decrypt } from "@/lib/session";
-import { cookies } from "next/headers";
+import { auth } from "@/lib/session";
 import { redirect } from "next/navigation";
 import React from "react";
 
 export default async function AuthProtect({
   children,
 }: React.PropsWithChildren) {
-  const cookie = cookies().get("session")?.value;
-  const session = await decrypt(cookie);
+  const session = await auth();
 
   if (!session?.user) {
     redirect("/login");

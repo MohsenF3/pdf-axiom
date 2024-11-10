@@ -50,3 +50,9 @@ export async function decrypt(sessionToken: string | undefined = "") {
     return null;
   }
 }
+
+export async function auth() {
+  const sessionToken = cookies().get(COOKIE_NAME)?.value;
+  const session = await decrypt(sessionToken);
+  return session as SessionPayload | null;
+}

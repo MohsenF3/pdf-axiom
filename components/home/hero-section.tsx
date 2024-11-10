@@ -7,6 +7,7 @@ import {
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { buttonVariants } from "../ui/button";
 import { ContainerScroll } from "../ui/container-scroll-animation";
 import { IconArrowRight } from "../ui/icons";
@@ -37,6 +38,8 @@ export default function HeroSection() {
 }
 
 function ContainerScrollTitle() {
+  const router = useRouter();
+
   return (
     <motion.div
       className="relative z-10 mx-auto w-full max-w-4xl space-y-5 p-4 pt-28 text-center md:pt-0"
@@ -66,6 +69,7 @@ function ContainerScrollTitle() {
             "group font-medium tracking-wider duration-0",
           )}
           variants={slideInTextVariants}
+          onClick={() => router.push("/login")}
         >
           Start for free
           <IconArrowRight className="transition-all group-hover:translate-x-1" />

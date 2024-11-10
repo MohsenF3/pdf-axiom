@@ -3,6 +3,7 @@
 import Logo from "@/components/shared/logo";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { useSession } from "@/provider/session-provider";
 import { motion, MotionValue, useScroll, useTransform } from "framer-motion";
 import dynamic from "next/dynamic";
 import Link from "next/link";
@@ -34,6 +35,8 @@ interface NavSidebarProps {
 }
 
 function DesktopNavbar({ background, opacity, width }: NavSidebarProps) {
+  const { session } = useSession();
+
   return (
     <div className="hidden w-full lg:block">
       <motion.div
@@ -52,17 +55,19 @@ function DesktopNavbar({ background, opacity, width }: NavSidebarProps) {
           <NavLinks />
         </div>
         <div className="flex items-center space-x-2">
+          {!session ? (
+            <Link
+              href="/login"
+              className={cn(
+                buttonVariants({ variant: "outline" }),
+                "active:scale-[0.98]s font-medium hover:-translate-y-0.5",
+              )}
+            >
+              Login
+            </Link>
+          ) : null}
           <Link
             href="/login"
-            className={cn(
-              buttonVariants({ variant: "outline" }),
-              "active:scale-[0.98]s font-medium hover:-translate-y-0.5",
-            )}
-          >
-            Login
-          </Link>
-          <Link
-            href="/"
             className={cn(
               buttonVariants({ variant: "gooeyLeft" }),
               "text-sm font-medium transition duration-300 hover:-translate-y-0.5 hover:bg-primary/90 active:scale-[0.98]",

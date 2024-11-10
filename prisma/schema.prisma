@@ -1,0 +1,47 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// 1. User System Enum
+enum UserSystemEnum {
+  system
+  user
+}
+
+// 2. Users Table
+model User {
+  id          Int      @id @default(autoincrement())
+  email       String   @unique @db.VarChar(256)
+  passwordHash String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  chats       Chat[]
+}
+
+// 3. Chats Table
+model Chat {
+  id        Int      @id @default(autoincrement())
+  fileKey   String
+  pdfName   String
+  pdfUrl    String
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  messages  Message[]
+}
+
+// 4. Messages Table
+model Message {
+  id        Int           @id @default(autoincrement())
+  chatId    Int
+  chat      Chat          @relation(fields: [chatId], references: [id])
+  content   String
+  createdAt DateTime      @default(now())
+  role      UserSystemEnum
+}

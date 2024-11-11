@@ -10,16 +10,16 @@ const DASHBOARD_SIDEBAR_LINKS = [
   {
     id: 1,
     name: "Conversation",
-    url: "/dashboard/conversation",
+    url: "/conversations",
     Icon: IconConversation,
   },
   {
     id: 2,
     name: "Documents",
-    url: "/dashboard/documents",
+    url: "/documents",
     Icon: IconDocuments,
   },
-  { id: 3, name: "Help & Support", url: "/dashboard/support", Icon: IconHelp },
+  { id: 3, name: "Help & Support", url: "/support", Icon: IconHelp },
 ];
 
 export default function DashboardSidebarLinks() {

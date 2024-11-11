@@ -1,7 +1,7 @@
 import { auth } from "@/lib/session";
 import { NextRequest, NextResponse } from "next/server";
 
-const protectedRoutes = ["/dashboard"];
+const protectedRoutes = ["/conversations", "/documents", "/support"];
 const publicRoutes = ["/login"];
 
 export default async function middleware(req: NextRequest) {
@@ -16,7 +16,7 @@ export default async function middleware(req: NextRequest) {
   }
 
   if (isPublicRoute && session?.user) {
-    return NextResponse.redirect(new URL("/dashboard", req.nextUrl));
+    return NextResponse.redirect(new URL("/conversations", req.nextUrl));
   }
 
   return NextResponse.next();

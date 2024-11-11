@@ -52,7 +52,7 @@ export async function login(prevState: any, formData: FormData) {
     };
   }
 
-  // create a user in database and create a session and redirect to dashboard
+  // create a user in database and create a session
   if (!user) {
     await addUserToDatabase(username, email, password);
     return {

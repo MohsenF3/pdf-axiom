@@ -19,7 +19,7 @@ export default function LoginWithEmail() {
         toast.error(state.message);
       } else {
         toast.success(state.message);
-        router.replace("/dashboard");
+        router.replace("/conversations");
       }
     }
   }, [state, router]);

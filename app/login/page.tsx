@@ -1,16 +1,8 @@
 import ExternalLogin from "@/components/login/external-login";
 import LoginWithEmail from "@/components/login/login-with-email";
 import Logo from "@/components/shared/logo";
-import { auth } from "@/lib/session";
-import { redirect } from "next/navigation";
 
 export default async function LoginPage() {
-  const session = await auth();
-
-  if (session) {
-    redirect("/dashboard");
-  }
-
   return (
     <div className="mx-auto flex h-screen max-w-lg flex-col items-center justify-center px-4">
       <Logo />

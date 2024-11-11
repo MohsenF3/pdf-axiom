@@ -1,7 +1,8 @@
 "use client";
 
+import { logout } from "@/app/login/action";
 import Logo from "@/components/shared/logo";
-import { buttonVariants } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useSession } from "@/provider/session-provider";
 import { motion, MotionValue, useScroll, useTransform } from "framer-motion";
@@ -65,7 +66,11 @@ function DesktopNavbar({ background, opacity, width }: NavSidebarProps) {
             >
               Login
             </Link>
-          ) : null}
+          ) : (
+            <Button variant="outline" onClick={async () => await logout()}>
+              Logout
+            </Button>
+          )}
           <Link
             href="/login"
             className={cn(

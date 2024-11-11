@@ -1,8 +1,9 @@
 "use server";
 
 import prisma from "@/lib/prisma";
-import { createSession } from "@/lib/session";
+import { createSession, deleteSession } from "@/lib/session";
 import bcrypt from "bcrypt";
+import { redirect } from "next/navigation";
 import { z } from "zod";
 
 const loginSchema = z.object({
@@ -95,4 +96,9 @@ async function addUserToDatabase(email: string, password: string) {
         "An error occurred while creating your account. Please try again later.",
     };
   }
+}
+
+export async function logout() {
+  await deleteSession();
+  redirect("/login");
 }

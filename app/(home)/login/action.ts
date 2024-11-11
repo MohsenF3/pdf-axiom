@@ -40,6 +40,7 @@ export async function login(prevState: any, formData: FormData) {
   }
 
   const { email, password } = parsedCredentials.data;
+  const username = email.split("@")[0];
 
   const user = await getUser(email);
 
@@ -53,7 +54,7 @@ export async function login(prevState: any, formData: FormData) {
 
   // create a user in database and create a session and redirect to dashboard
   if (!user) {
-    await addUserToDatabase(email, password);
+    await addUserToDatabase(username, email, password);
     return {
       type: "success",
       message: "Welcome to PDF Axiom!",
@@ -70,14 +71,18 @@ export async function login(prevState: any, formData: FormData) {
     };
   }
 
-  await createSession({ email, id: user.id });
+  await createSession({ username, email, id: user.id });
   return {
     type: "success",
     message: "Welcome to PDF Axiom!",
   };
 }
 
-async function addUserToDatabase(email: string, password: string) {
+async function addUserToDatabase(
+  username: string,
+  email: string,
+  password: string,
+) {
   const passwordHash = await bcrypt.hash(password, 10);
 
   try {
@@ -88,7 +93,7 @@ async function addUserToDatabase(email: string, password: string) {
       },
     });
 
-    await createSession({ email, id: newUser.id });
+    await createSession({ username, email, id: newUser.id });
   } catch (error) {
     return {
       type: "error",

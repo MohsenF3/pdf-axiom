@@ -1,4 +1,3 @@
-import Header from "@/components/layout/header";
 import { Toaster } from "@/components/ui/sonner";
 import { auth } from "@/lib/session";
 import { SessionProvider } from "@/provider/session-provider";
@@ -34,11 +33,7 @@ export default async function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <SessionProvider session={session}>
-          <Header />
-
-          <main>{children}</main>
-        </SessionProvider>
+        <SessionProvider session={session}>{children}</SessionProvider>
 
         <Toaster richColors />
       </body>

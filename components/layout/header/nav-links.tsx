@@ -3,8 +3,8 @@ import NavLink from "./nav-link";
 const LINKS = [
   { id: 1, name: "Home", url: "/" },
   { id: 2, name: "Features", url: "/" },
-  { id: 4, name: "Blog", url: "/blog" },
-  { id: 3, name: "Contact", url: "/contact" },
+  { id: 3, name: "Blog", url: "/blog" },
+  { id: 4, name: "Contact", url: "/contact" },
 ];
 
 export default function NavLinks() {

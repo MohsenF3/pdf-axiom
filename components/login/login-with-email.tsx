@@ -1,6 +1,6 @@
 "use client";
 
-import { login } from "@/app/login/action";
+import { login } from "@/app/(home)/login/action";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import React from "react";

@@ -1,8 +1,8 @@
 "use client";
 
-import LogoutForm from "@/components/logout-form";
+import LogoutModal from "@/components/dashboard/logout-modal";
 import Logo from "@/components/shared/logo";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useSession } from "@/provider/session-provider";
 import { MotionValue, motion } from "framer-motion";
@@ -51,11 +51,7 @@ export default function DesktopNavbar({
               Login
             </Link>
           ) : (
-            <LogoutForm>
-              <Button variant="outline" className="h-full w-full">
-                Log out
-              </Button>
-            </LogoutForm>
+            <LogoutModal className="h-auto w-auto" variant="outline" />
           )}
           <Link
             href="/login"

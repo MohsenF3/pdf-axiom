@@ -8,9 +8,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 import React from "react";
-import LogoutForm from "../logout-form";
-import { Button } from "../ui/button";
-import { IconLogout, IconSetting } from "../ui/icons";
+import { IconSetting } from "../ui/icons";
+import LogoutModal from "./logout-modal";
 import UserDetails from "./user-details";
 
 interface UserDropdownSidebarProps extends React.ComponentProps<"button"> {
@@ -49,16 +48,8 @@ export default function UserDropdownSidebar({
           Setting
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem asChild className="hover:bg-sidebar-accent">
-          <LogoutForm>
-            <Button
-              type="submit"
-              className="h-full w-full justify-start gap-2 bg-transparent p-0 text-sidebar-foreground hover:bg-none hover:ring-0"
-            >
-              <IconLogout />
-              Log out
-            </Button>
-          </LogoutForm>
+        <DropdownMenuItem className="hover:bg-sidebar-accent">
+          <LogoutModal className="bg-transparent p-0 text-sidebar-foreground hover:bg-none hover:ring-0" />
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

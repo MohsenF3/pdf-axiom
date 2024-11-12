@@ -22,7 +22,7 @@ const buttonVariants = cva(
           "text-foreground animate-shine bg-gradient-to-r from-primary via-primary/75 to-primary bg-[length:400%_100%] ",
         gooeyLeft:
           "text-foreground relative bg-primary z-0 overflow-hidden transition-all duration-300 after:absolute after:inset-0 after:-z-10 after:translate-x-[-150%] after:translate-y-[150%] after:scale-[2.5] after:rounded-[100%] after:bg-gradient-to-l from-sky-800 after:transition-transform after:duration-1000  hover:after:translate-x-[0%] hover:after:translate-y-[0%] ",
-        loading: "group gap-2 bg-muted hover:bg-muted/60",
+        loading: "group gap-2 bg-muted hover:bg-muted/60 font-semibold",
       },
       size: {
         default: "px-4 py-2",

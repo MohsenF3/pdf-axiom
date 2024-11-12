@@ -12,7 +12,7 @@ export default function ExternalLogin() {
 
 function GithubLogin() {
   return (
-    <Button className="flex-1 space-x-2 bg-foreground px-4 py-3 hover:bg-foreground/80">
+    <Button className="flex-1 space-x-2 bg-foreground px-4 py-3 text-background hover:bg-foreground/80 hover:bg-none">
       <IconGIthub />
       <span className="text-sm">Login with GitHub</span>
     </Button>
@@ -21,7 +21,7 @@ function GithubLogin() {
 
 function GoogleLogin() {
   return (
-    <Button className="flex-1 space-x-2 bg-foreground px-4 py-3 hover:bg-foreground/80">
+    <Button className="flex-1 space-x-2 bg-foreground px-4 py-3 text-background hover:bg-foreground/80 hover:bg-none">
       <IconGoogle />
       <span className="text-sm">Login with Google</span>
     </Button>

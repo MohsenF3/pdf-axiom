@@ -7,7 +7,7 @@ import UserDropdownSidebar from "./user-dropdown-sidebar";
 
 export default function MobileSidebar() {
   return (
-    <div className="flex w-full items-center justify-between p-3">
+    <div className="flex w-full items-center justify-between p-4 lg:hidden">
       <div className="flex items-center gap-2">
         <Sheet>
           <SheetTrigger>

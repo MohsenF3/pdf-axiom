@@ -11,7 +11,7 @@ export default async function UserDetails({
 
   return (
     <>
-      <div className="flex h-10 w-10 items-center justify-center rounded-md bg-sidebar-primary">
+      <div className="flex h-10 w-10 items-center justify-center rounded-md bg-primary-high">
         {session?.user.username.slice(0, 2)}
       </div>
       {withDetails ? (

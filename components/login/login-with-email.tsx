@@ -4,10 +4,9 @@ import { login } from "@/app/(home)/login/action";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import React from "react";
-import { useFormState, useFormStatus } from "react-dom";
+import { useFormState } from "react-dom";
 import { toast } from "sonner";
-import { Button } from "../ui/button";
-import { IconLoader } from "../ui/icons";
+import SubmitButton from "../shared/submit-button";
 
 export default function LoginWithEmail() {
   const [state, loginAction] = useFormState(login, undefined);
@@ -45,24 +44,8 @@ export default function LoginWithEmail() {
         errors={state?.errors?.password}
       />
 
-      <SubmitButton />
+      <SubmitButton type="submit">Continue with Email</SubmitButton>
     </form>
-  );
-}
-
-function SubmitButton() {
-  const { pending } = useFormStatus();
-
-  return (
-    <Button
-      variant="secondary"
-      disabled={pending}
-      type="submit"
-      className="group flex w-full items-center gap-2 px-4 py-3 font-medium hover:bg-muted/60"
-    >
-      <IconLoader className="hidden animate-spin group-disabled:block" />
-      Continue with Email
-    </Button>
   );
 }
 

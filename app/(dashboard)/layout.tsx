@@ -5,7 +5,9 @@ export default function DashboardLayout({ children }: React.PropsWithChildren) {
     <div className="flex h-dvh w-full flex-col items-start overflow-hidden lg:flex-row">
       <DashboardSidebar />
 
-      <main className="p-3">{children}</main>
+      <main className="relative flex h-full w-full flex-col gap-10 p-4 lg:p-8">
+        {children}
+      </main>
     </div>
   );
 }

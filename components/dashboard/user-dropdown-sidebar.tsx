@@ -44,16 +44,16 @@ export default function UserDropdownSidebar({
           <UserDetails />
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
+        <DropdownMenuItem className="hover:bg-sidebar-accent">
           <IconSetting />
           Setting
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem asChild>
-          <LogoutForm className="hover:bg-sidebar-accent">
+        <DropdownMenuItem asChild className="hover:bg-sidebar-accent">
+          <LogoutForm>
             <Button
               type="submit"
-              className="h-full w-full justify-start gap-2 bg-transparent p-0 text-sidebar-foreground hover:bg-transparent hover:ring-0"
+              className="h-full w-full justify-start gap-2 bg-transparent p-0 text-sidebar-foreground hover:bg-none hover:ring-0"
             >
               <IconLogout />
               Log out

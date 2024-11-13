@@ -1,11 +1,13 @@
-import { getConversations } from "@/lib/actions";
+import { getConversations } from "@/app/(dashboard)/conversations/actions";
+import conversationImage from "@/public/conversation.webp";
+import Image from "next/image";
 import { redirect } from "next/navigation";
 import { cache } from "react";
+import EmptyData from "../shared/empty-data";
 import Error from "../shared/error";
 import ConversationItems from "./conversation-items";
-import EmptyConversation from "./empty-conversation";
-
-const loadConversations = cache(async () => {
+import NewChatButton from "./new-chat-button";
+export const loadConversations = cache(async () => {
   return await getConversations();
 });
 
@@ -25,6 +27,18 @@ export default async function FetchConversations() {
   return data?.length ? (
     <ConversationItems conversations={data} />
   ) : (
-    <EmptyConversation />
+    <EmptyData
+      message="No recent conversations yet."
+      button={<NewChatButton />}
+      image={
+        <div className="relative w-[300px]">
+          <Image
+            src={conversationImage}
+            alt="conversation image"
+            className="bg-blend-overlay"
+          />
+        </div>
+      }
+    />
   );
 }

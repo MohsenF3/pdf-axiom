@@ -1,6 +1,6 @@
 "use client";
 
-import { deleteConversation } from "@/lib/actions";
+import { deleteConversation } from "@/app/(dashboard)/conversations/actions";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { toast } from "sonner";

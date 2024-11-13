@@ -1,7 +1,7 @@
 "use server";
 
-import prisma from "./prisma";
-import { auth } from "./session";
+import prisma from "../../../lib/prisma";
+import { auth } from "../../../lib/session";
 
 export const getConversations = async () => {
   const session = await auth();

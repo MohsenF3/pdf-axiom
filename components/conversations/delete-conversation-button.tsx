@@ -18,19 +18,24 @@ import { IconTrashcan } from "../ui/icons";
 
 interface DeleteConversationButtonProps {
   conversationId: number;
+  closeDropdown: () => void;
 }
 
 export default function DeleteConversationButton({
   conversationId,
+  closeDropdown,
 }: DeleteConversationButtonProps) {
   const [isRemovePending, startRemoveTransition] = React.useTransition();
   const [isOpen, setIsOpen] = React.useState(false);
   const router = useRouter();
 
-  const handleDelete = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-  ) => {
-    event.preventDefault();
+  // for when user close the modal with cancel button or the conversation deleted successfully
+  const closeModalAndDropdown = () => {
+    closeDropdown();
+    setIsOpen(false);
+  };
+
+  const handleDelete = () => {
     startRemoveTransition(async () => {
       const { message, status } = await deleteConversation(conversationId);
 
@@ -47,23 +52,26 @@ export default function DeleteConversationButton({
         return;
       }
 
-      setIsOpen(false);
+      closeModalAndDropdown();
       toast.success(message);
     });
   };
 
+  const handleOpenChange = (open: boolean) => {
+    setIsOpen(open);
+    // for when user click on close modal button or outside of the modal
+    if (!open) closeDropdown();
+  };
+
   return (
-    <Modal defaultOpen={isOpen} open={isOpen} onOpenChange={setIsOpen}>
+    <Modal defaultOpen={isOpen} open={isOpen} onOpenChange={handleOpenChange}>
       <ModalTrigger asChild>
         <Button
           type="button"
           aria-label="delete conversation"
           variant="ghost"
           className="h-full w-full justify-start gap-2 rounded-md px-2 text-destructive hover:text-destructive"
-          onClick={(event) => {
-            event.preventDefault();
-            setIsOpen(true);
-          }}
+          onClick={() => setIsOpen(true)}
         >
           <IconTrashcan className="size-5 text-destructive" />
           Delete
@@ -81,7 +89,7 @@ export default function DeleteConversationButton({
           <Button
             variant="ghost"
             className="border"
-            onClick={() => setIsOpen(false)}
+            onClick={closeModalAndDropdown}
           >
             Cancel
           </Button>

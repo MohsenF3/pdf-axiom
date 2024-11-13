@@ -25,7 +25,7 @@ export default function LoginWithEmail() {
 
   return (
     <form className="w-full space-y-5" action={loginAction}>
-      <LoginBox
+      <InputBox
         id="email"
         type="email"
         name="email"
@@ -34,7 +34,7 @@ export default function LoginWithEmail() {
         errors={state?.errors?.email}
       />
 
-      <LoginBox
+      <InputBox
         id="password"
         type="password"
         name="password"
@@ -49,11 +49,11 @@ export default function LoginWithEmail() {
   );
 }
 
-interface LoginBoxProps extends React.ComponentProps<"input"> {
-  errors: string[] | undefined;
+interface InputBoxProps extends React.ComponentProps<"input"> {
+  errors?: string[] | undefined;
 }
 
-function LoginBox({ errors, className, ...props }: LoginBoxProps) {
+export function InputBox({ errors, className, ...props }: InputBoxProps) {
   return (
     <div className="w-full space-y-2">
       <input

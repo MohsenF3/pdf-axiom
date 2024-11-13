@@ -43,7 +43,7 @@ body {
 
 @layer base {
   * {
-    @apply border-border;
+    @apply border-border [&::-webkit-scrollbar-thumb]:rounded-md [&::-webkit-scrollbar-thumb]:bg-muted-foreground [&::-webkit-scrollbar-track]:rounded-md [&::-webkit-scrollbar-track]:bg-muted [&::-webkit-scrollbar]:w-1;
   }
   body {
     @apply !pointer-events-auto bg-background text-foreground;

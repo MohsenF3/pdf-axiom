@@ -1,9 +1,15 @@
-import { Button } from "../ui/button";
+import { cn } from "@/lib/utils";
+import { Button, ButtonProps } from "../ui/button";
 import { IconAddChat } from "../ui/icons";
 
-export default function NewChatButton() {
+interface NewChatButtonProps extends ButtonProps {}
+
+export default function NewChatButton({
+  className,
+  ...props
+}: NewChatButtonProps) {
   return (
-    <Button variant="gooeyLeft" className="gap-1">
+    <Button variant="gooeyLeft" className={cn("gap-1", className)} {...props}>
       <IconAddChat className="size-5" />
       New Chat
     </Button>

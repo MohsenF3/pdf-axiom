@@ -1,11 +1,17 @@
 import documentsImage from "@/public/documents.webp";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 import { loadConversations } from "../conversations/fetch-conversations";
 import EmptyData from "../shared/empty-data";
 import Error from "../shared/error";
 import DocumentsTable from "./documents-table";
-import UploadButton from "./upload-button";
+const UploadModal = dynamic(
+  () => import("@/components/documents/upload/upload-modal"),
+  {
+    ssr: false,
+  },
+);
 
 export default async function FetchDocuments() {
   const { status, message, data } = await loadConversations();
@@ -25,7 +31,7 @@ export default async function FetchDocuments() {
   ) : (
     <EmptyData
       message="Oops! you haven’t uploaded any document."
-      button={<UploadButton />}
+      button={<UploadModal />}
       image={
         <div className="relative w-[250px]">
           <Image

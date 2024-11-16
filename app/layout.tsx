@@ -1,8 +1,11 @@
 import { Toaster } from "@/components/ui/sonner";
 import { auth } from "@/lib/session";
+import { uploadRouter } from "@/lib/upload/uploadthing-server";
 import { SessionProvider } from "@/provider/session-provider";
+import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { extractRouterConfig } from "uploadthing/server";
 import "./globals.css";
 
 const geistSans = localFont({
@@ -33,6 +36,8 @@ export default async function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <NextSSRPlugin routerConfig={extractRouterConfig(uploadRouter)} />
+
         <SessionProvider session={session}>{children}</SessionProvider>
 
         <Toaster richColors />

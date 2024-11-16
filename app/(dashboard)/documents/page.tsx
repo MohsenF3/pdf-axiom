@@ -23,8 +23,6 @@ export default async function DocumentsPage() {
         <UploadModal />
       </div>
 
-      
-
       <div className="flex-1 overflow-y-auto">
         <Suspense fallback={<DocumentsSkeleton />}>
           <FetchDocuments />

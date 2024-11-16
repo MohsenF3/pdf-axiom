@@ -35,6 +35,7 @@ export const uploadRouter = {
         name: file.name,
         key: file.key,
         url: file.url,
+        size: file.size,
       };
 
       const response = await uploadFile(uploadData);

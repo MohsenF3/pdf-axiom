@@ -30,6 +30,7 @@ model Chat {
   fileKey   String
   pdfName   String
   pdfUrl    String
+  pdfSize   Int
   userId    Int
   user      User     @relation(fields: [userId], references: [id])
   createdAt DateTime @default(now())

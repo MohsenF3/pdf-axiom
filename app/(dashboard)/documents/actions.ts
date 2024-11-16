@@ -7,9 +7,11 @@ interface FileInfo {
   name: string;
   key: string;
   url: string;
+  size: number;
 }
 
 export const uploadFile = async (data: FileInfo) => {
+  console.log(data);
   try {
     await prisma.chat.create({
       data: {
@@ -17,6 +19,7 @@ export const uploadFile = async (data: FileInfo) => {
         fileKey: data.key,
         pdfName: data.name,
         pdfUrl: data.url,
+        pdfSize: data.size,
       },
     });
 
@@ -25,6 +28,7 @@ export const uploadFile = async (data: FileInfo) => {
       message: `${data.name} uploaded successfully!`,
     };
   } catch (error) {
+    console.log(error);
     return {
       status: 500,
       message: "Failed to upload file. Please try again later.",

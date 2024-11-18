@@ -1,5 +1,3 @@
-import "server-only";
-
 import { SessionPayload, User } from "@/types";
 import { SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";

@@ -44,6 +44,7 @@ export default async function FetchDocuments() {
             src={documentsImage}
             alt="documents image"
             className="bg-blend-overlay"
+            priority
           />
         </div>
       }

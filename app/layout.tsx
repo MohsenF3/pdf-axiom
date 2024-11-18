@@ -1,7 +1,7 @@
 import { Toaster } from "@/components/ui/sonner";
 import { auth } from "@/lib/session";
 import { uploadRouter } from "@/lib/upload/uploadthing-server";
-import { SessionProvider } from "@/provider/session-provider";
+import { Providers } from "@/provider";
 import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
@@ -38,7 +38,7 @@ export default async function RootLayout({
       >
         <NextSSRPlugin routerConfig={extractRouterConfig(uploadRouter)} />
 
-        <SessionProvider session={session}>{children}</SessionProvider>
+        <Providers session={session}>{children}</Providers>
 
         <Toaster richColors />
       </body>

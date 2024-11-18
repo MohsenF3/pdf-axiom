@@ -36,6 +36,7 @@ export default async function FetchConversations() {
             src={conversationImage}
             alt="conversation image"
             className="bg-blend-overlay"
+            priority
           />
         </div>
       }

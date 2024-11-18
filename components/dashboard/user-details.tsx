@@ -1,13 +1,13 @@
-import { auth } from "@/lib/session";
+"use client";
+
+import { useSession } from "@/provider/session-provider";
 
 interface UserDetailsProps {
   withDetails?: boolean;
 }
 
-export default async function UserDetails({
-  withDetails = true,
-}: UserDetailsProps) {
-  const session = await auth();
+export default function UserDetails({ withDetails = true }: UserDetailsProps) {
+  const { session } = useSession();
 
   return (
     <>

@@ -11,7 +11,9 @@ export default function DashboardSidebar() {
         <Sidebar className="hidden lg:flex" />
 
         {/* Mobile sidebar */}
-        <MobileSidebar />
+        <MobileSidebar>
+          <Sidebar className="h-full w-full" />
+        </MobileSidebar>
       </div>
     </aside>
   );

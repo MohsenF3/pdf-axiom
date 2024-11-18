@@ -1,6 +1,7 @@
 "use server";
 
 import prisma from "@/lib/prisma";
+import { auth } from "@/lib/session";
 
 interface FileInfo {
   userId: number;
@@ -11,9 +12,9 @@ interface FileInfo {
 }
 
 export const uploadFile = async (data: FileInfo) => {
-  console.log(data);
+  // we already checked if the user is logged in in the uploadThing middleware
   try {
-    await prisma.chat.create({
+    await prisma.document.create({
       data: {
         userId: data.userId,
         fileKey: data.key,
@@ -28,10 +29,79 @@ export const uploadFile = async (data: FileInfo) => {
       message: `${data.name} uploaded successfully!`,
     };
   } catch (error) {
-    console.log(error);
     return {
       status: 500,
       message: "Failed to upload file. Please try again later.",
+    };
+  }
+};
+
+export const getDocuments = async () => {
+  const session = await auth();
+
+  if (!session) {
+    return {
+      status: 401,
+      message: "Unauthorized",
+    };
+  }
+
+  try {
+    const documents = await prisma.document.findMany({
+      where: {
+        userId: session.user.id,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+
+    return {
+      status: 200,
+      data: documents,
+    };
+  } catch (error) {
+    return {
+      status: 500,
+      message: "Failed to get documents. Please try again later.",
+    };
+  }
+};
+
+export const getDocument = async (id: number) => {
+  try {
+    const document = await prisma.document.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    return { status: 200, data: document };
+  } catch (error) {
+    return {
+      status: 500,
+      message: "Failed to delete conversation. Please try again later.",
+    };
+  }
+};
+
+export const deleteDocument = async (documentId: number) => {
+  const session = await auth();
+  if (!session) {
+    return { status: 401, message: "User not authenticated." };
+  }
+
+  try {
+    await prisma.document.delete({
+      where: {
+        id: documentId,
+      },
+    });
+    return { status: 200, message: "Document deleted successfully." };
+  } catch (error) {
+    return {
+      status: 500,
+      message: "Failed to delete Document. Please try again later.",
     };
   }
 };

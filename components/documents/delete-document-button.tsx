@@ -1,6 +1,6 @@
 "use client";
 
-import { deleteConversation } from "@/app/(dashboard)/conversations/actions";
+import { deleteDocument } from "@/app/(dashboard)/documents/actions";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { toast } from "sonner";
@@ -16,13 +16,13 @@ import {
 } from "../ui/dialog";
 import { IconTrashcan } from "../ui/icons";
 
-interface DeleteConversationButtonProps {
-  conversationId: number;
+interface DeleteDocumentButtonProps {
+  documentId: number;
 }
 
-export default function DeleteConversationButton({
-  conversationId,
-}: DeleteConversationButtonProps) {
+export default function DeleteDocumentButton({
+  documentId,
+}: DeleteDocumentButtonProps) {
   const [isRemovePending, startRemoveTransition] = React.useTransition();
   const [isOpen, setIsOpen] = React.useState(false);
   const router = useRouter();
@@ -33,7 +33,7 @@ export default function DeleteConversationButton({
     event.preventDefault();
 
     startRemoveTransition(async () => {
-      const { message, status } = await deleteConversation(conversationId);
+      const { message, status } = await deleteDocument(documentId);
 
       // redirect user to login page if not logged in
       if (status === 401) {
@@ -50,6 +50,7 @@ export default function DeleteConversationButton({
 
       setIsOpen(false);
       toast.success(message);
+      router.refresh();
     });
   };
 
@@ -70,9 +71,9 @@ export default function DeleteConversationButton({
       </ModalTrigger>
       <ModalContent>
         <ModalHeader>
-          <ModalTitle>Delete Conversation</ModalTitle>
+          <ModalTitle>Delete Document</ModalTitle>
           <ModalDescription>
-            Are you sure you want to delete this conversation?
+            Are you sure you want to delete this document?
           </ModalDescription>
         </ModalHeader>
 

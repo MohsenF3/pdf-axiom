@@ -3,7 +3,7 @@ import { Skeleton } from "../ui/skeleton";
 export default function DocumentsSkeleton() {
   return (
     <div className="space-y-5">
-      <Skeleton className="h-11 w-full" />
+      <Skeleton className="h-16 w-full" />
       <SkeletonItem />
       <SkeletonItem />
       <SkeletonItem />

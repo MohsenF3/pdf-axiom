@@ -22,19 +22,31 @@ model User {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   chats       Chat[]
+  Document     Document[]
 }
 
-// 3. Chats Table
-model Chat {
+// New Document Table
+model Document {
   id        Int      @id @default(autoincrement())
-  fileKey   String
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  fileKey   String   @unique
   pdfName   String
   pdfUrl    String
   pdfSize   Int
-  userId    Int
-  user      User     @relation(fields: [userId], references: [id])
+  chats     Chat[]
   createdAt DateTime @default(now())
-  messages  Message[]
+}
+
+// Modified Chats Table
+model Chat {
+  id         Int       @id @default(autoincrement())
+  userId     Int
+  user       User      @relation(fields: [userId], references: [id])
+  documentId Int?      
+  document   Document? @relation(fields: [documentId], references: [id])
+  createdAt  DateTime  @default(now())
+  messages   Message[]
 }
 
 // 4. Messages Table

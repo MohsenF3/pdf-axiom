@@ -1,11 +1,12 @@
+import { getDocuments } from "@/app/(dashboard)/documents/actions";
 import documentsImage from "@/public/documents.webp";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { redirect } from "next/navigation";
-import { loadConversations } from "../conversations/fetch-conversations";
+import { cache } from "react";
 import EmptyData from "../shared/empty-data";
 import Error from "../shared/error";
-import DocumentsTable from "./documents-table";
+import DocumentsList from "./documents-list";
 const UploadModal = dynamic(
   () => import("@/components/documents/upload/upload-modal"),
   {
@@ -13,8 +14,12 @@ const UploadModal = dynamic(
   },
 );
 
+const loadDocuments = cache(async () => {
+  return await getDocuments();
+});
+
 export default async function FetchDocuments() {
-  const { status, message, data } = await loadConversations();
+  const { status, message, data } = await loadDocuments();
 
   // redirect user to login page if not logged in
   if (status === 401) {
@@ -22,12 +27,13 @@ export default async function FetchDocuments() {
     return null;
   }
 
+  // return error component if some error occurred in server
   if (status === 500) {
     return <Error message={message} />;
   }
 
   return data?.length ? (
-    <DocumentsTable />
+    <DocumentsList docs={data} />
   ) : (
     <EmptyData
       message="Oops! you haven’t uploaded any document."

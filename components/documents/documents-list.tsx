@@ -24,7 +24,7 @@ export default function DocumentsTable({ docs }: DocumentsTableProps) {
               createdAt={doc.createdAt}
             />
 
-            <DocumentListDropdown documentId={doc.id} />
+            <DocumentListDropdown documentKey={doc.fileKey} />
           </div>
         ))}
       </div>

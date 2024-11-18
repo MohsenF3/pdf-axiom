@@ -9,11 +9,11 @@ import { Button } from "../ui/button";
 import DeleteConversationButton from "./delete-document-button";
 
 interface DocumentListDropdownProps {
-  documentId: number;
+  documentKey: string;
 }
 
 export default function DocumentListDropdown({
-  documentId,
+  documentKey,
 }: DocumentListDropdownProps) {
   return (
     <DropdownMenu>
@@ -24,7 +24,7 @@ export default function DocumentListDropdown({
       </DropdownMenuTrigger>
       <DropdownMenuContent side="bottom" align="end" className="min-w-[10rem]">
         <DropdownMenuItem className="p-0 hover:bg-sidebar-accent">
-          <DeleteConversationButton documentId={documentId} />
+          <DeleteConversationButton documentKey={documentKey} />
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

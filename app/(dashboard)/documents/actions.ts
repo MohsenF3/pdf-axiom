@@ -2,6 +2,7 @@
 
 import prisma from "@/lib/prisma";
 import { auth } from "@/lib/session";
+import { utapi } from "@/lib/upload/uploadthing-server";
 
 interface FileInfo {
   userId: number;
@@ -85,16 +86,19 @@ export const getDocument = async (id: number) => {
   }
 };
 
-export const deleteDocument = async (documentId: number) => {
+export const deleteDocument = async (documentKey: string) => {
   const session = await auth();
   if (!session) {
     return { status: 401, message: "User not authenticated." };
   }
 
   try {
+    // delete the file from uploadthing
+    await utapi.deleteFiles(documentKey);
+    // delete the file from the database
     await prisma.document.delete({
       where: {
-        id: documentId,
+        fileKey: documentKey,
       },
     });
     return { status: 200, message: "Document deleted successfully." };

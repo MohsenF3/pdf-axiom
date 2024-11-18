@@ -1,7 +1,10 @@
 import { uploadFile } from "@/app/(dashboard)/documents/actions";
 import type { FileRouter } from "uploadthing/next";
 import { createUploadthing } from "uploadthing/next";
+import { UTApi } from "uploadthing/server";
 import { auth } from "../session";
+
+export const utapi = new UTApi();
 
 const f = createUploadthing({
   errorFormatter: (err) => {

@@ -17,11 +17,11 @@ import {
 import { IconTrashcan } from "../ui/icons";
 
 interface DeleteDocumentButtonProps {
-  documentId: number;
+  documentKey: string;
 }
 
 export default function DeleteDocumentButton({
-  documentId,
+  documentKey,
 }: DeleteDocumentButtonProps) {
   const [isRemovePending, startRemoveTransition] = React.useTransition();
   const [isOpen, setIsOpen] = React.useState(false);
@@ -33,7 +33,7 @@ export default function DeleteDocumentButton({
     event.preventDefault();
 
     startRemoveTransition(async () => {
-      const { message, status } = await deleteDocument(documentId);
+      const { message, status } = await deleteDocument(documentKey);
 
       // redirect user to login page if not logged in
       if (status === 401) {

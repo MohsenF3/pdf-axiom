@@ -1,4 +1,9 @@
+import { formatDateTime, formatFileSize } from "@/lib/formatter";
+import { cn } from "@/lib/utils";
 import { Document } from "@prisma/client";
+import Link from "next/link";
+import { buttonVariants } from "../ui/button";
+import { IconAddChat, IconPDF } from "../ui/icons";
 import DocumentListDropdown from "./document-list-dropdown";
 import DocumentsListItem from "./documents-list-item";
 
@@ -12,21 +17,49 @@ export default function DocumentsTable({ docs }: DocumentsTableProps) {
       <DocumentsListHead />
 
       <div>
-        {docs.map((doc) => (
-          <div
-            className="flex items-center justify-between border-b px-2 py-4"
-            key={doc.id}
-          >
-            <DocumentsListItem
-              pdfName={doc.pdfName}
-              pdfUrl={doc.pdfUrl}
-              pdfSize={doc.pdfSize}
-              createdAt={doc.createdAt}
-            />
+        {docs.map((doc) => {
+          const formattedSize = formatFileSize(doc.pdfSize);
+          const formattedDate = formatDateTime(doc.createdAt);
 
-            <DocumentListDropdown documentKey={doc.fileKey} />
-          </div>
-        ))}
+          return (
+            <div
+              className="flex items-center justify-between border-b px-2 py-4"
+              key={doc.id}
+            >
+              <DocumentsListItem
+                pdfName={doc.pdfName}
+                pdfUrl={doc.pdfUrl}
+                createdAt={doc.createdAt}
+                trigger={
+                  <button className="flex w-[70%] items-center justify-between md:w-full">
+                    <div className="flex w-full items-start gap-1 text-start md:w-[40%]">
+                      <IconPDF className="size-12 flex-shrink-0" />
+                      <p className="truncate font-semibold">{doc.pdfName}</p>
+                    </div>
+                    <div className="hidden w-[45%] items-center justify-evenly md:flex">
+                      <p className="w-full text-start">{formattedSize}</p>
+                      <p className="w-full text-start">{formattedDate}</p>
+                    </div>
+                  </button>
+                }
+              />
+
+              <div className="mr-1 flex items-center gap-2">
+                <Link
+                  className={cn(
+                    buttonVariants({ variant: "ghost", size: "icon" }),
+                    "rounded-md",
+                  )}
+                  href={`/conversation/d/${doc.fileKey}`}
+                >
+                  <IconAddChat className="size-6" />
+                </Link>
+
+                <DocumentListDropdown documentKey={doc.fileKey} />
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
@@ -43,7 +76,11 @@ function DocumentsListHead() {
           <p className="w-full">Date Created</p>
         </div>
       </div>
-      <p className="mx-1 h-10 w-10"></p>
+
+      <div className="mr-1 flex items-center gap-2">
+        <p className="h-10 w-10"></p>
+        <p className="h-10 w-10"></p>
+      </div>
     </div>
   );
 }

@@ -11,7 +11,7 @@ import { IconConversation, IconDocuments } from "../ui/icons";
 const DASHBOARD_SIDEBAR_LINKS = [
   {
     id: 1,
-    name: "Conversation",
+    name: "Conversations",
     url: "/conversations",
     Icon: IconConversation,
   },

@@ -1,18 +1,19 @@
 "use client";
 
+import { cn } from "@/lib/utils";
 import React from "react";
 import Loader from "../shared/loader";
 
-interface PdfViewProps {
+interface PdfViewProps extends React.ComponentProps<"div"> {
   url: string;
 }
 
-export default function PdfView({ url }: PdfViewProps) {
+export default function PdfView({ url, className, ...props }: PdfViewProps) {
   const [isLoading, setIsLoading] = React.useState(true);
 
   return (
-    <div className="relative h-full flex-1">
-      {isLoading && <Loader />}
+    <div className={cn("relative h-full flex-1", className)} {...props}>
+      {isLoading ? <Loader /> : null}
 
       <iframe
         src={url}

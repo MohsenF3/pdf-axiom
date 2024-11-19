@@ -18,7 +18,7 @@ export default function DocumentListDropdown({
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="data-[state=open]:bg-muted" asChild>
-        <Button variant="ghost" size="icon" className="mr-1 rounded-md">
+        <Button variant="ghost" size="icon" className="rounded-md">
           <IconDots className="size-6" />
         </Button>
       </DropdownMenuTrigger>

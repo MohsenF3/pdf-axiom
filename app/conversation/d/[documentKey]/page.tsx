@@ -47,7 +47,7 @@ export default async function ConversationPage({
           ))}
         </div>
 
-        <div className="mb-12 h-auto w-full lg:mb-8">
+        <div className="mb-12 h-auto w-full lg:mb-10">
           <InputBox
             className="h-full w-full py-6"
             type="text"

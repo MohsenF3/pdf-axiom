@@ -43,8 +43,8 @@ model Chat {
   id         Int       @id @default(autoincrement())
   userId     Int
   user       User      @relation(fields: [userId], references: [id])
-  documentId Int?      
-  document   Document? @relation(fields: [documentId], references: [id])
+  documentKey String?      
+  document   Document? @relation(fields: [documentKey], references: [fileKey])
   createdAt  DateTime  @default(now())
   messages   Message[]
 }

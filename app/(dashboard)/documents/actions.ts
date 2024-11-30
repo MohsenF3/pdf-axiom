@@ -69,11 +69,11 @@ export const getDocuments = async () => {
   }
 };
 
-export const getDocument = async (id: number) => {
+export const getDocument = async (documentKey: string) => {
   try {
     const document = await prisma.document.findUnique({
       where: {
-        id,
+        fileKey: documentKey,
       },
     });
 

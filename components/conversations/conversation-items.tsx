@@ -17,7 +17,7 @@ export default function ConversationItems({
           key={conversation.id}
           id={conversation.id}
           createdAt={conversation.createdAt}
-          documentId={conversation.documentId}
+          documentKey={conversation.documentKey}
         />
       ))}
     </div>

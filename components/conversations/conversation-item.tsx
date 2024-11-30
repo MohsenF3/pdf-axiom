@@ -10,9 +10,9 @@ type ConversationItemProps = Omit<Chat, "userId">;
 export default async function ConversationItem({
   id,
   createdAt,
-  documentId,
+  documentKey,
 }: ConversationItemProps) {
-  const { data } = await getDocument(documentId!);
+  const { data } = await getDocument(documentKey!);
   const formattedTime = formatDateTime(createdAt);
 
   return (

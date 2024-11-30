@@ -7,6 +7,7 @@ import EmptyData from "../shared/empty-data";
 import Error from "../shared/error";
 import ConversationItems from "./conversation-items";
 import NewChatButton from "./new-chat-button";
+
 export const loadConversations = cache(async () => {
   return await getConversations();
 });

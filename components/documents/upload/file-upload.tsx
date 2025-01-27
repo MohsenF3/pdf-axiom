@@ -47,22 +47,25 @@ export default function FileUpload({ onClose }: FileUploadProps) {
     signal: controller.signal,
   });
 
-  const onDrop = React.useCallback(async (acceptedFiles: File[]) => {
-    // if user select invalid file type
-    if (acceptedFiles.length === 0) {
-      toast.error("Please select a valid file to upload.");
-      return;
-    }
-
-    try {
-      await startUpload(acceptedFiles);
-    } catch (error: unknown) {
-      if (error instanceof Error && error.name === "UploadAborted") {
-        toast.error("Upload cancelled.");
+  const onDrop = React.useCallback(
+    async (acceptedFiles: File[]) => {
+      // if user select invalid file type
+      if (acceptedFiles.length === 0) {
+        toast.error("Please select a valid file to upload.");
         return;
       }
-    }
-  }, []);
+
+      try {
+        await startUpload(acceptedFiles);
+      } catch (error: unknown) {
+        if (error instanceof Error && error.name === "UploadAborted") {
+          toast.error("Upload cancelled.");
+          return;
+        }
+      }
+    },
+    [startUpload],
+  );
 
   const { getRootProps, getInputProps, isDragActive, acceptedFiles } =
     useDropzone({

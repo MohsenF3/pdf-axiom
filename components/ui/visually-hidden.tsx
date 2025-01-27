@@ -1,3 +1,7 @@
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
 
-export default () => <VisuallyHidden.Root />;
+const MyVisuallyHiddenComponent = () => <VisuallyHidden.Root />;
+
+MyVisuallyHiddenComponent.displayName = "MyVisuallyHiddenComponent";
+
+export default MyVisuallyHiddenComponent;

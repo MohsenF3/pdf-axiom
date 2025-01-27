@@ -2,17 +2,9 @@
 
 import prisma from "@/lib/prisma";
 import { createSession, deleteSession } from "@/lib/session";
+import { LoginSchema, loginSchema } from "@/types/auth/schema";
 import bcrypt from "bcrypt";
 import { redirect } from "next/navigation";
-import { z } from "zod";
-
-const loginSchema = z.object({
-  email: z.string().email({ message: "Invalid email address" }).trim(),
-  password: z
-    .string()
-    .min(8, { message: "Password must be at least 8 characters" })
-    .trim(),
-});
 
 export const getUser = async (email: string) => {
   try {
@@ -30,8 +22,8 @@ export const getUser = async (email: string) => {
   }
 };
 
-export async function login(prevState: any, formData: FormData) {
-  const parsedCredentials = loginSchema.safeParse(Object.fromEntries(formData));
+export async function login(data: LoginSchema) {
+  const parsedCredentials = loginSchema.safeParse(data);
 
   if (!parsedCredentials.success) {
     return {

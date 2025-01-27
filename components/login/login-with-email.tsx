@@ -1,69 +1,100 @@
 "use client";
 
 import { login } from "@/app/(home)/login/action";
+import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { PasswordInput } from "@/components/ui/password-input";
 import { cn } from "@/lib/utils";
+import { loginSchema, LoginSchema } from "@/types/auth/schema";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import React from "react";
-import { useFormState } from "react-dom";
+import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import SubmitButton from "../shared/submit-button";
 
 export default function LoginWithEmail() {
-  const [state, loginAction] = useFormState(login, undefined);
   const router = useRouter();
 
-  React.useEffect(() => {
-    if (state?.type && state?.message) {
-      if (state.type === "error") {
-        toast.error(state.message);
-      } else {
-        toast.success(state.message);
-        router.replace("/conversations");
-      }
+  const form = useForm<LoginSchema>({
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+    resolver: zodResolver(loginSchema),
+  });
+
+  const onSubmit = async (data: LoginSchema) => {
+    const response = await login(data);
+
+    if (response?.type === "error") {
+      toast.error(response.message);
+      return;
     }
-  }, [state, router]);
+
+    toast.success(response.message);
+    router.replace("/conversations");
+  };
 
   return (
-    <form className="w-full space-y-5" action={loginAction}>
-      <InputBox
-        id="email"
-        type="email"
-        name="email"
-        required
-        placeholder="contact@aceternity.com"
-        errors={state?.errors?.email}
-      />
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-5">
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Email :</FormLabel>
+              <FormControl>
+                <Input
+                  id="email"
+                  type="email"
+                  autoComplete="email"
+                  placeholder="contact@aceternity.com"
+                  {...field}
+                />
+              </FormControl>
 
-      <InputBox
-        id="password"
-        type="password"
-        name="password"
-        required
-        minLength={8}
-        placeholder="********"
-        errors={state?.errors?.password}
-      />
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="password"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Password :</FormLabel>
+              <FormControl>
+                <PasswordInput
+                  id="password"
+                  autoComplete="current-password"
+                  placeholder="********"
+                  {...field}
+                />
+              </FormControl>
 
-      <SubmitButton type="submit">Continue with Email</SubmitButton>
-    </form>
-  );
-}
-
-interface InputBoxProps extends React.ComponentProps<"input"> {
-  errors?: string[] | undefined;
-}
-
-export function InputBox({ errors, className, ...props }: InputBoxProps) {
-  return (
-    <div className="w-full space-y-2">
-      <input
-        className={cn(
-          "h-10 w-full rounded-md border border-muted bg-transparent pl-4 text-sm placeholder-muted-foreground outline-none focus:outline-none focus:ring-2 focus:ring-muted active:outline-none",
-          className,
-        )}
-        {...props}
-      />
-      <p className="text-red-500">{errors}</p>
-    </div>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <Button
+          type="submit"
+          variant="loading"
+          className="flex w-full items-center px-4 py-3"
+          disabled={form.formState.isSubmitting}
+          pending={form.formState.isSubmitting}
+        >
+          Continue with Email
+        </Button>
+      </form>
+    </Form>
   );
 }

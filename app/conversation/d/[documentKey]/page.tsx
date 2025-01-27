@@ -1,10 +1,10 @@
 import ConversationMessages from "@/components/conversation/conversation-messages";
 import DocumentsListItem from "@/components/documents/documents-list-item";
 import PdfView from "@/components/documents/pdf-view";
-import { InputBox } from "@/components/login/login-with-email";
 import Error from "@/components/shared/error";
 import { Button } from "@/components/ui/button";
 import { IconFile } from "@/components/ui/icons";
+import { Input } from "@/components/ui/input";
 import { notFound, redirect } from "next/navigation";
 import { getDocumentByKey } from "../../actions";
 
@@ -48,7 +48,7 @@ export default async function ConversationPage({
         </div>
 
         <div className="mb-12 h-auto w-full lg:mb-10">
-          <InputBox
+          <Input
             className="h-full w-full py-6"
             type="text"
             placeholder="Ask a question about your document"

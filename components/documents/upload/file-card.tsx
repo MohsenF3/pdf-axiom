@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { IconClose, IconFile } from "@/components/ui/icons";
-import { Progress } from "@/components/ui/progress";
+import Progress from "@/components/ui/progress";
 import { formatBytes } from "@/lib/formatter";
 
 type FileCardProps = {
@@ -40,7 +40,7 @@ export default function FileCard({
           <IconClose />
         </Button>
       </div>
-      <Progress value={progress} />
+      <Progress progress={progress} />
     </div>
   );
 }

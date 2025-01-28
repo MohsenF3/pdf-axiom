@@ -54,7 +54,7 @@ const Header: React.FC<{
 }> = ({ translate, titleComponent }) => (
   <motion.div
     style={{ translateY: translate }}
-    className="mx-auto mb-20 max-w-5xl text-center"
+    className="mx-auto mb-20 max-w-6xl text-center"
   >
     {titleComponent}
   </motion.div>
@@ -76,7 +76,7 @@ const Card: React.FC<{
     initial={{ opacity: 0, translateY: 100 }}
     animate={{ opacity: 1, translateY: 0 }}
     transition={{ duration: 0.5, delay: 2.3 }}
-    className="mx-auto -mt-12 h-[30rem] w-full max-w-5xl rounded-[30px] border-4 border-muted-foreground bg-muted p-2 shadow-2xl md:h-[40rem] md:p-6"
+    className="mx-auto -mt-12 h-[30rem] w-full max-w-6xl rounded-[30px] border-4 border-muted-foreground bg-muted p-2 shadow-2xl md:h-[40rem] md:p-6"
   >
     <div className="h-full w-full overflow-hidden rounded-2xl bg-popover md:rounded-2xl md:p-4">
       {children}

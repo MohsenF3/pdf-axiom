@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import HeroImage from "../../public/example-dashboard.webp";
 import { buttonVariants } from "../ui/button";
 import { ContainerScroll } from "../ui/container-scroll-animation";
 import { IconArrowRight } from "../ui/icons";
@@ -24,12 +25,11 @@ export default function HeroSection() {
 
       <ContainerScroll titleComponent={<ContainerScrollTitle />}>
         <Image
-          src={`/example-dashboard.webp`}
+          src={HeroImage}
           alt="hero image"
-          height={720}
-          width={1400}
           className="mx-auto h-full rounded-2xl object-cover object-left-top"
           draggable={false}
+          placeholder="blur"
           priority
         />
       </ContainerScroll>

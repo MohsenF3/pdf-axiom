@@ -1,4 +1,5 @@
 import PersonalInfo from "@/components/setting/personal-info";
+import ChangePassword from "@/components/setting/change-password";
 import PageHeader from "@/components/shared/page-header";
 
 export default function SettingPage() {
@@ -11,6 +12,8 @@ export default function SettingPage() {
 
       <div className="mx-auto w-full max-w-5xl">
         <PersonalInfo />
+
+        <ChangePassword />
       </div>
     </>
   );

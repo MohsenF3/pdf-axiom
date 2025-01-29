@@ -1,7 +1,8 @@
 "use server";
 
 import prisma from "@/lib/prisma";
-import { auth } from "@/lib/session";
+import { auth, refreshSession } from "@/lib/session";
+import { extractUsernameFromEmail } from "@/lib/utils";
 import {
   ChangePassword,
   changePasswordSchema,
@@ -26,16 +27,19 @@ export const updatePersonalInfo = async (data: PersonalInfo) => {
   }
 
   const { email } = parsedCredentials.data;
+  const username = extractUsernameFromEmail(email);
 
   try {
     await prisma.user.update({
       where: {
-        id: session.user.id,
+        email: session.user.email,
       },
       data: {
         email,
       },
     });
+
+    await refreshSession({ ...session.user, email, username });
 
     return { type: "success", message: "Personal info updated successfully." };
   } catch (error) {

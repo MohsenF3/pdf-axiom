@@ -2,6 +2,7 @@
 
 import prisma from "@/lib/prisma";
 import { createSession, deleteSession } from "@/lib/session";
+import { extractUsernameFromEmail } from "@/lib/utils";
 import { LoginSchema, loginSchema } from "@/types/auth/schema";
 import bcrypt from "bcrypt";
 import { redirect } from "next/navigation";
@@ -32,7 +33,7 @@ export async function login(data: LoginSchema) {
   }
 
   const { email, password } = parsedCredentials.data;
-  const username = email.split("@")[0];
+  const username = extractUsernameFromEmail(email);
 
   const user = await getUser(email);
 

@@ -29,6 +29,11 @@ export async function deleteSession() {
   cookies().delete(COOKIE_NAME);
 }
 
+export const refreshSession = async (user: User) => {
+  await deleteSession();
+  await createSession(user);
+};
+
 export async function encrypt(payload: SessionPayload) {
   return new SignJWT(payload)
     .setProtectedHeader({ alg: "HS256" })

@@ -1,5 +1,6 @@
-import PersonalInfo from "@/components/setting/personal-info";
 import ChangePassword from "@/components/setting/change-password";
+import DeleteAccount from "@/components/setting/delete-account";
+import PersonalInfo from "@/components/setting/personal-info";
 import PageHeader from "@/components/shared/page-header";
 
 export default function SettingPage() {
@@ -14,6 +15,8 @@ export default function SettingPage() {
         <PersonalInfo />
 
         <ChangePassword />
+
+        <DeleteAccount />
       </div>
     </>
   );

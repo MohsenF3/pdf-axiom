@@ -1,7 +1,7 @@
 "use server";
 
 import prisma from "@/lib/prisma";
-import { auth, refreshSession } from "@/lib/session";
+import { auth, deleteSession, refreshSession } from "@/lib/session";
 import { extractUsernameFromEmail } from "@/lib/utils";
 import {
   ChangePassword,
@@ -109,6 +109,32 @@ export const changePassword = async (data: ChangePassword) => {
     return {
       type: "error",
       message: "Failed to change password. Please try again later.",
+    };
+  }
+};
+
+export const deleteAccount = async () => {
+  const session = await auth();
+  if (!session) {
+    return { type: "error", message: "User not authenticated." };
+  }
+
+  try {
+    await prisma.user.delete({
+      where: {
+        email: session.user.email,
+      },
+    });
+    await deleteSession();
+
+    return {
+      type: "success",
+      message: "Your account has been deleted successfully.",
+    };
+  } catch (error) {
+    return {
+      type: "error",
+      message: "Failed to delete your account. Please try again later.",
     };
   }
 };

@@ -11,6 +11,7 @@ import React from "react";
 import { IconSetting } from "../ui/icons";
 import LogoutModal from "./logout-modal";
 import UserDetails from "./user-details";
+import Link from "next/link";
 
 interface UserDropdownSidebarProps extends React.ComponentProps<"button"> {
   trigger: React.ReactNode;
@@ -43,9 +44,11 @@ export default function UserDropdownSidebar({
           <UserDetails />
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem className="hover:bg-sidebar-accent">
-          <IconSetting />
-          Setting
+        <DropdownMenuItem className="hover:bg-sidebar-accent" asChild>
+          <Link href="/setting">
+            <IconSetting />
+            Setting
+          </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem className="hover:bg-sidebar-accent">

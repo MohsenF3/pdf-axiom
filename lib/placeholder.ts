@@ -1,3 +1,9 @@
+import {
+  IconConversation,
+  IconDocuments,
+  IconSetting,
+} from "@/components/ui/icons";
+
 export const PAGES = [
   { id: 1, name: "Home", url: "/" },
   { id: 2, name: "Features", url: "/" },
@@ -21,3 +27,24 @@ export const SOCIALS = [
 ];
 
 export const REGISTER = [{ id: 1, name: "Login", url: "/login" }];
+
+export const DASHBOARD_SIDEBAR_LINKS = [
+  {
+    id: 1,
+    name: "Conversations",
+    url: "/conversations",
+    Icon: IconConversation,
+  },
+  {
+    id: 2,
+    name: "Documents",
+    url: "/documents",
+    Icon: IconDocuments,
+  },
+  {
+    id: 3,
+    name: "Setting",
+    url: "/setting",
+    Icon: IconSetting,
+  },
+];

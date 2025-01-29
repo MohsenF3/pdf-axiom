@@ -9,8 +9,7 @@ export default async function AuthProtect({
 
   if (!session?.user) {
     redirect("/login");
-    return null;
   }
 
-  return children;
+  return <>{children}</>;
 }

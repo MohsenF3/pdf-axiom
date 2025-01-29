@@ -1,27 +1,12 @@
 "use client";
 
 import { useMediaQuery } from "@/hooks/use-media-query";
+import { DASHBOARD_SIDEBAR_LINKS } from "@/lib/placeholder";
 import { cn } from "@/lib/utils";
 import { useSidebar } from "@/provider/sidebar-provider";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { buttonVariants } from "../ui/button";
-import { IconConversation, IconDocuments } from "../ui/icons";
-
-const DASHBOARD_SIDEBAR_LINKS = [
-  {
-    id: 1,
-    name: "Conversations",
-    url: "/conversations",
-    Icon: IconConversation,
-  },
-  {
-    id: 2,
-    name: "Documents",
-    url: "/documents",
-    Icon: IconDocuments,
-  },
-];
 
 export default function DashboardSidebarLinks() {
   const pathname = usePathname();

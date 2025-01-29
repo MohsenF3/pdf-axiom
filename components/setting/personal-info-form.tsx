@@ -30,6 +30,13 @@ export default function PersonalInfoForm() {
   });
 
   const onSubmit = async (data: PersonalInfo) => {
+    // check if email is equal to the current email
+    const isEmailEqual = session?.user.email === data.email;
+    if (isEmailEqual) {
+      form.setError("email", { message: "No changes were made to the email." });
+      return;
+    }
+
     const response = await updatePersonalInfo(data);
 
     if (response?.type === "error") {

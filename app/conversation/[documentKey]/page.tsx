@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { IconFile } from "@/components/ui/icons";
 import { Input } from "@/components/ui/input";
 import { notFound, redirect } from "next/navigation";
-import { getDocumentByKey } from "../../actions";
+import { getDocumentByKey } from "../actions";
 
 interface ConversationPageProps {
   params: {

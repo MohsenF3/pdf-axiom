@@ -50,7 +50,7 @@ export default function DocumentsTable({ docs }: DocumentsTableProps) {
                     buttonVariants({ variant: "ghost", size: "icon" }),
                     "rounded-md",
                   )}
-                  href={`/conversation/d/${doc.fileKey}`}
+                  href={`/conversation/${doc.fileKey}`}
                 >
                   <IconAddChat className="size-6" />
                 </Link>

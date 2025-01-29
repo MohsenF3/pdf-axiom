@@ -46,7 +46,11 @@ export default function LogoutModal({ className, ...props }: LogoutModalProps) {
           Log out
         </Button>
       </ModalTrigger>
-      <ModalContent>
+      <ModalContent
+        onEscapeKeyDown={(e) => e.preventDefault()}
+        onPointerDown={(e) => e.preventDefault()}
+        onInteractOutside={(e) => e.preventDefault()}
+      >
         <ModalHeader>
           <ModalTitle className="text-destructive">Log out</ModalTitle>
           <ModalDescription>Are you sure you want to log out?</ModalDescription>

@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import HeroImage from "../../public/example-dashboard.webp";
+import HeroImage from "../../public/example-conversations.webp";
 import { buttonVariants } from "../ui/button";
 import { ContainerScroll } from "../ui/container-scroll-animation";
 import { IconArrowRight } from "../ui/icons";

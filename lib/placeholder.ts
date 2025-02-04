@@ -48,3 +48,21 @@ export const DASHBOARD_SIDEBAR_LINKS = [
     Icon: IconSetting,
   },
 ];
+
+export const FEATURES = [
+  {
+    name: "Effortless PDF Uploads",
+    description:
+      "Easily upload your PDFs and let AI handle the rest, delivering quick and accurate insights.",
+  },
+  {
+    name: "AI-Driven Insights",
+    description:
+      "Receive instant answers, summaries, and in-depth analyses powered by AI intelligence.",
+  },
+  {
+    name: "Enhanced Productivity",
+    description:
+      "Save time and effort by transforming lengthy documents into actionable insights within seconds.",
+  },
+];

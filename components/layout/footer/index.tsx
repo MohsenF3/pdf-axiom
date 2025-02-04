@@ -66,7 +66,7 @@ export default function Footer() {
         </div>
       </div>
       <p className="inset-x-0 bg-gradient-to-b from-background to-muted bg-clip-text text-center text-6xl font-bold text-transparent md:text-9xl lg:text-[15rem]">
-        PDF Axiom
+        PDF AXIOM
       </p>
     </footer>
   );

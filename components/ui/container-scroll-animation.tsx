@@ -1,22 +1,8 @@
 "use client";
 
+import { useMediaQuery } from "@/hooks/use-media-query";
 import { motion, MotionValue, useScroll, useTransform } from "framer-motion";
-import React, { useEffect, useRef, useState } from "react";
-
-// Custom hook to check if the device is mobile
-const useIsMobile = (breakpoint = 768): boolean => {
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth <= breakpoint);
-    checkMobile();
-
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, [breakpoint]);
-
-  return isMobile;
-};
+import React, { useRef } from "react";
 
 // Container component that handles scroll-based transformations
 export const ContainerScroll: React.FC<{
@@ -25,7 +11,7 @@ export const ContainerScroll: React.FC<{
 }> = ({ titleComponent, children }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: containerRef });
-  const isMobile = useIsMobile();
+  const isMobile = useMediaQuery("(max-width: 768px)");
 
   const scaleDimensions = isMobile ? [0.7, 0.9] : [1.05, 1];
   const rotate = useTransform(scrollYProgress, [0, 1], [20, 0]);

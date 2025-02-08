@@ -15,10 +15,12 @@ import { PasswordInput } from "@/components/ui/password-input";
 import { loginSchema, LoginSchema } from "@/types/auth/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
+import React from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 export default function LoginWithEmail() {
+  const [isLogging, startLogging] = React.useTransition();
   const router = useRouter();
 
   const form = useForm<LoginSchema>({
@@ -30,16 +32,23 @@ export default function LoginWithEmail() {
   });
 
   const onSubmit = async (data: LoginSchema) => {
-    const response = await login(data);
+    startLogging(async () => {
+      const response = await login(data);
 
-    if (response?.type === "error") {
-      toast.error(response.message);
-      return;
-    }
+      if (response?.type === "error") {
+        toast.error(response.message);
+        return;
+      }
 
-    toast.success(response.message);
-    router.replace("/conversations");
+      toast.success(response.message);
+      router.replace("/conversations");
+    });
   };
+
+  const isFormDisabled = React.useMemo(
+    () => isLogging || form.formState.isSubmitting,
+    [isLogging, form.formState.isSubmitting],
+  );
 
   return (
     <Form {...form}>
@@ -87,8 +96,8 @@ export default function LoginWithEmail() {
           type="submit"
           variant="loading"
           className="flex w-full items-center px-4 py-3"
-          disabled={form.formState.isSubmitting}
-          pending={form.formState.isSubmitting}
+          disabled={isFormDisabled}
+          pending={isFormDisabled}
         >
           Continue with Email
         </Button>

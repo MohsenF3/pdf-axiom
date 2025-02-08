@@ -16,7 +16,7 @@ export default function GlobeFeaturesSection() {
       </div>
       <h2
         id="global-database-title"
-        className="z-10 mt-6 inline-block bg-gradient-to-b from-foreground to-primary/50 bg-clip-text px-2 text-center text-5xl font-bold tracking-tighter text-transparent md:text-8xl"
+        className="z-10 mt-6 inline-block bg-gradient-to-b from-foreground to-primary/50 bg-clip-text px-2 text-center text-4xl font-bold tracking-tighter text-transparent md:text-8xl"
       >
         Connect Your PDFs <br /> to a World of Answers
       </h2>
